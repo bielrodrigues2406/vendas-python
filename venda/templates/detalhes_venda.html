@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes da Venda</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="form-section">
+        <h2>Detalhes da Venda</h2>
+
+        <p><strong>Código da Venda:</strong> {{ venda.codvenda }}</p>
+        <p><strong>Data:</strong> {{ venda.data }}</p>
+        <p><strong>Cliente:</strong> {{ cliente.nome }}</p>
+        <p><strong>Endereço:</strong> {{ cliente.endereco }}</p>
+        <p><strong>Total da Venda:</strong> R$ {{ venda.valor_total }}</p>
+
+        <h3>Itens da Venda</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Preço Unitário</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in itens %}
+                <tr>
+                    <td>{{ item.nome }}</td>
+                    <td>{{ item.qtde }}</td>
+                    <td>R$ {{ item.preco }}</td>
+                    <td>R$ {{ item.subtotal }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="actions">
+            <a href="/vendas"><button class="cancelar">Voltar</button></a>
+        </div>
+    </div>
+</body>
+</html>

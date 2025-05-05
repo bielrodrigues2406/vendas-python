@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Vendas</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+        }
+        .home-title {
+            font-size: 32px;
+            color: #343a40;
+            margin-bottom: 10px;
+        }
+        .home-subtitle {
+            font-size: 18px;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+        .actions a button {
+            width: 200px;
+            font-size: 16px;
+            transition: all 0.2s ease-in-out;
+        }
+        .actions a button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="form-section" style="text-align:center;">
+        <h1 class="home-title">Sistema de Vendas</h1>
+        <p class="home-subtitle">
+            Gerencie clientes, produtos e registre vendas de forma rápida e eficiente.
+        </p>
+
+        <div class="actions" style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+            <a href="/clientes"><button>👤 Gerenciar Clientes</button></a>
+            <a href="/produtos"><button>📦 Gerenciar Produtos</button></a>
+            <a href="/vendas"><button>📊 Consultar Vendas</button></a>
+            <a href="/venda/nova"><button>📝 Nova Venda</button></a>
+        </div>
+    </div>
+</body>
+</html>

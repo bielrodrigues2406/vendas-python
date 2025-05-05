@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Cliente</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="form-section">
+        <h2>Editar Cliente</h2>
+
+        <form action="/cliente/editar/{{ cliente.codcliente }}" method="post">
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" id="nome" value="{{ cliente.nome }}" required>
+
+            <label for="endereco">Endereço:</label>
+            <input type="text" name="endereco" id="endereco" value="{{ cliente.endereco }}" required>
+
+            <div class="actions">
+                <input type="submit" value="Salvar">
+                <a href="/clientes"><button type="button" class="cancelar">Cancelar</button></a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

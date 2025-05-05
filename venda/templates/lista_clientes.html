@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Clientes</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="form-section">
+        <h2>Clientes Cadastrados</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in lista %}
+                <tr>
+                    <td>{{ cliente.codcliente }}</td>
+                    <td>{{ cliente.nome }}</td>
+                    <td>{{ cliente.endereco }}</td>
+                    <td>
+                        <a href="/cliente/editar/{{ cliente.codcliente }}">
+                            <button>Editar</button>
+                        </a>
+                        <a href="/cliente/remover/{{ cliente.codcliente }}" onclick="return confirm('Confirma exclusão?')">
+                            <button class="cancelar">Remover</button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="actions">
+            <a href="/cliente/novo"><button>Novo Cliente</button></a>
+            <a href="/"><button class="cancelar">Voltar</button></a>
+        </div>
+    </div>
+</body>
+</html>

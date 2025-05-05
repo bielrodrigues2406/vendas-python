@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Vendas</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="form-section">
+        <h2>Vendas Realizadas</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Data</th>
+                    <th>Cliente</th>
+                    <th>Total</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for venda in lista %}
+                <tr>
+                    <td>{{ venda.codvenda }}</td>
+                    <td>{{ venda.data }}</td>
+                    <td>{{ venda.codcliente }}</td>
+                    <td>R$ {{ venda.valor_total }}</td>
+                    <td>
+                        <a href="/venda/{{ venda.codvenda }}">
+                           <button>Ver Detalhes</button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="actions">
+            <a href="/venda/nova"><button>Nova Venda</button></a>
+            <a href="/"><button class="cancelar">Voltar</button></a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Cliente</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="form-section">
+        <h2>Cadastrar Cliente</h2>
+
+        <form action="/cliente/novo" method="post">
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" id="nome" required>
+
+            <label for="endereco">Endereço:</label>
+            <input type="text" name="endereco" id="endereco" required>
+
+            <div class="actions">
+                <input type="submit" value="Cadastrar">
+                <a href="/clientes"><button type="button" class="cancelar">Cancelar</button></a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

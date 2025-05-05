@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ titulo }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="form-section">
+        <h2>Nova Venda</h2>
+
+        <form action="/venda/nova" method="post" id="formVenda">
+            <label for="codcliente">Cliente:</label>
+            <select name="codcliente" id="codcliente" required>
+                <option value="">Selecione</option>
+                {% for cliente in clientes %}
+                    <option value="{{ cliente.codcliente }}">{{ cliente.nome }}</option>
+                {% endfor %}
+            </select>
+
+            <h3>Adicionar Produto</h3>
+            <label>Produto:</label>
+            <input type="text" id="busca_produto" placeholder="Digite o nome..." list="listaProdutos">
+            <datalist id="listaProdutos">
+                {% for produto in produtos %}
+                    <option value="{{ produto.nome }}">
+                {% endfor %}
+            </datalist>
+
+            <label>Quantidade:</label>
+            <input type="number" id="quantidade" value="1" min="1">
+
+            <div class="actions">
+                <button type="button" onclick="adicionarProduto()">Adicionar Produto</button>
+            </div>
+
+            <table id="tabelaItens">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Qtd</th>
+                        <th>Preço</th>
+                        <th>Total</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <p class="total-info">
+                Total Geral: <strong>R$ <span id="totalGeral">0.00</span></strong>
+            </p>
+            <input type="hidden" name="valor_total" id="valor_total">
+            <div id="camposItens"></div>
+
+            <div class="actions">
+                <input type="submit" value="Efetuar Venda">
+                <a href="/vendas"><button type="button" class="cancelar">Cancelar</button></a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const produtos = [
+            {% for produto in produtos %}
+                {
+                    id: {{ produto.codproduto }},
+                    nome: `{{ produto.nome }}`,
+                    preco: {{ produto.preco }}
+                },
+            {% endfor %}
+        ];
+
+        let totalGeral = 0;
+
+        function adicionarProduto() {
+            const nomeBusca = document.getElementById("busca_produto").value.trim().toLowerCase();
+            const qtde = parseInt(document.getElementById("quantidade").value);
+            const produto = produtos.find(p => p.nome.toLowerCase() === nomeBusca);
+
+            if (!produto || isNaN(qtde) || qtde <= 0) {
+                alert("Produto inválido ou quantidade incorreta.");
+                return;
+            }
+
+            const preco = produto.preco;
+            const total = preco * qtde;
+            totalGeral += total;
+
+            const tbody = document.querySelector("#tabelaItens tbody");
+
+            const linha = document.createElement("tr");
+            linha.innerHTML = `
+                <td>${produto.nome}<input type="hidden" name="produtos[]" value="${produto.id}"></td>
+                <td>${qtde}<input type="hidden" name="qtde[]" value="${qtde}"></td>
+                <td>R$ ${preco.toFixed(2)}</td>
+                <td>R$ ${total.toFixed(2)}</td>
+                <td><button type="button" onclick="removerLinha(this, ${total})" class="remover">Remover</button></td>
+            `;
+            tbody.appendChild(linha);
+
+            document.getElementById("totalGeral").textContent = totalGeral.toFixed(2);
+            document.getElementById("valor_total").value = totalGeral.toFixed(2);
+
+            document.getElementById("busca_produto").value = "";
+            document.getElementById("quantidade").value = 1;
+        }
+
+        function removerLinha(botao, total) {
+            const linha = botao.closest("tr");
+            linha.remove();
+            totalGeral -= total;
+            document.getElementById("totalGeral").textContent = totalGeral.toFixed(2);
+            document.getElementById("valor_total").value = totalGeral.toFixed(2);
+        }
+    </script>
+</body>
+</html>
